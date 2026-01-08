@@ -1,0 +1,7 @@
+{
+  "name": "ephiel",
+  "description": "A high-end visual novel character introduction page featuring interactive profiles, stat visualizations, and AI-powered personality chats.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
