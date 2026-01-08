@@ -1,7 +1,5 @@
 {
   "name": "ephiel",
-  "description": "A high-end visual novel character introduction page featuring interactive profiles, stat visualizations, and AI-powered personality chats.",
-  "requestFramePermissions": [
-    "microphone"
-  ]
+  "description": "에피엘 아카데미의 고퀄리티 비주얼 노벨 캐릭터 및 세계관 소개 페이지입니다. 세련된 UI와 인터랙티브한 아카이브를 제공합니다.",
+  "requestFramePermissions": []
 }
