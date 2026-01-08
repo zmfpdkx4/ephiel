@@ -1,6 +1,7 @@
+
 import React, { useState, useRef, useEffect } from 'react';
-import { Character, ChatMessage } from '../types';
-import { geminiService } from '../geminiService';
+import { Character, ChatMessage } from '../types.ts';
+import { geminiService } from '../geminiService.ts';
 
 interface CharacterChatProps {
   character: Character;

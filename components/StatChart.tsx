@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer, PolarRadiusAxis } from 'recharts';
-import { CharacterStat } from '../types';
+import { CharacterStat } from '../types.ts';
 
 interface StatChartProps {
   data: CharacterStat[];

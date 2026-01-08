@@ -1,8 +1,9 @@
+
 import React, { useState, useEffect, useMemo } from 'react';
-import { CHARACTERS, STORY_SYNOPSIS, LORE_DATA, LoreItem } from './constants';
-import { Character, HouseType } from './types';
-import StatChart from './components/StatChart';
-import CharacterChat from './components/CharacterChat';
+import { CHARACTERS, STORY_SYNOPSIS, LORE_DATA, LoreItem } from './constants.tsx';
+import { Character, HouseType } from './types.ts';
+import StatChart from './components/StatChart.tsx';
+import CharacterChat from './components/CharacterChat.tsx';
 
 const HOUSES: { type: HouseType; label: string; color: string }[] = [
   { type: 'Deus', label: '데우스 학파 (DEUS)', color: '#06b6d4' },
@@ -102,7 +103,6 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 transition-colors duration-500">
-      {/* Background Decor */}
       <div className="fixed inset-0 pointer-events-none opacity-[0.03]">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] grayscale"></div>
         {selectedChar && (
@@ -113,7 +113,6 @@ const App: React.FC = () => {
         )}
       </div>
 
-      {/* Navigation Header */}
       <header className="relative z-40 pt-8 px-6 md:px-12 bg-white/70 backdrop-blur-md sticky top-0 border-b border-slate-200">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center pb-6">
           <div className="flex items-center gap-4 mb-6 md:mb-0 cursor-pointer" onClick={() => handleTabChange('characters')}>
@@ -143,7 +142,6 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* Content */}
       <main className="relative z-10 flex-1 max-w-7xl mx-auto w-full p-6 md:p-12">
         {activeTab === 'story' ? (
           !selectedLore ? (
@@ -208,7 +206,7 @@ const App: React.FC = () => {
                 </div>
               </div>
 
-              {selectedLore.history && (
+              {selectedLore.history && selectedLore.history.length > 0 && (
                 <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
                   <div className="flex items-center gap-4">
                     <h3 className="text-2xl font-serif italic text-slate-900">Historical Archives // 연혁</h3>
@@ -225,7 +223,7 @@ const App: React.FC = () => {
                 </div>
               )}
 
-              {selectedLore.subItems && (
+              {selectedLore.subItems && selectedLore.subItems.length > 0 && (
                 <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
                   <div className="flex items-center gap-4">
                     <h3 className="text-3xl font-serif italic text-red-600">High-Risk Entities // 특급 위험 개체</h3>
@@ -288,7 +286,6 @@ const App: React.FC = () => {
           </div>
         ) : (
           <div className="flex flex-col lg:flex-row gap-12 animate-in fade-in slide-in-from-right-4 duration-500 pb-20">
-            {/* Left Column */}
             <div className="lg:w-[450px] flex-shrink-0 space-y-8">
               <button onClick={handleBackToList} className="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-slate-400 hover:text-slate-900 transition-colors">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7 7-7" /></svg>
@@ -316,7 +313,6 @@ const App: React.FC = () => {
                 </div>
               </div>
 
-              {/* Stats Chart Integration */}
               <div className="glass p-8 rounded-[2rem] border-slate-100 bg-white/80 shadow-lg">
                 <h3 className="text-xs font-black tracking-widest uppercase text-slate-400 mb-6 flex items-center gap-2">
                    <div className="w-1.5 h-4 rounded-full" style={{ backgroundColor: selectedChar.themeColor }} />
@@ -326,7 +322,6 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Column */}
             <div className="flex-1 space-y-10">
               <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {getCharDetails(selectedChar).map((item, idx) => (
@@ -348,7 +343,6 @@ const App: React.FC = () => {
                 </div>
               </section>
 
-              {/* AI Character Chat Integration */}
               <CharacterChat character={selectedChar} />
             </div>
           </div>

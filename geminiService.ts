@@ -1,12 +1,14 @@
 
 import { GoogleGenAI } from "@google/genai";
-import { Character, ChatMessage } from "./types";
+import { Character, ChatMessage } from "./types.ts";
 
 export class GeminiService {
   private ai: GoogleGenAI;
 
   constructor() {
-    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY || "" });
+    // process 객체가 정의되어 있는지 안전하게 확인
+    const apiKey = typeof process !== 'undefined' ? process.env.API_KEY : '';
+    this.ai = new GoogleGenAI({ apiKey: apiKey || "" });
   }
 
   async chatWithCharacter(character: Character, history: ChatMessage[], userMessage: string) {
