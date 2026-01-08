@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { CHARACTERS, STORY_SYNOPSIS, LORE_DATA, LoreItem } from './constants';
 import { Character, HouseType } from './types';
+import StatChart from './components/StatChart';
+import CharacterChat from './components/CharacterChat';
 
 const HOUSES: { type: HouseType; label: string; color: string }[] = [
   { type: 'Deus', label: '데우스 학파 (DEUS)', color: '#06b6d4' },
@@ -100,7 +102,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 transition-colors duration-500">
-      {/* Academy Aesthetic Background */}
+      {/* Background Decor */}
       <div className="fixed inset-0 pointer-events-none opacity-[0.03]">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] grayscale"></div>
         {selectedChar && (
@@ -111,7 +113,7 @@ const App: React.FC = () => {
         )}
       </div>
 
-      {/* Main Header */}
+      {/* Navigation Header */}
       <header className="relative z-40 pt-8 px-6 md:px-12 bg-white/70 backdrop-blur-md sticky top-0 border-b border-slate-200">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center pb-6">
           <div className="flex items-center gap-4 mb-6 md:mb-0 cursor-pointer" onClick={() => handleTabChange('characters')}>
@@ -141,18 +143,14 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Content Area */}
+      {/* Content */}
       <main className="relative z-10 flex-1 max-w-7xl mx-auto w-full p-6 md:p-12">
         {activeTab === 'story' ? (
           !selectedLore ? (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 space-y-12">
                <div className="text-center space-y-4 mb-16">
                   <h2 className="text-5xl font-serif italic text-slate-900">{STORY_SYNOPSIS.title}</h2>
-                  {STORY_SYNOPSIS.description && (
-                    <p className="text-slate-600 max-w-2xl mx-auto font-light leading-relaxed">
-                      {STORY_SYNOPSIS.description}
-                    </p>
-                  )}
+                  <p className="text-slate-500 text-xs tracking-widest uppercase font-bold">Archives of the Unified Worlds</p>
                </div>
 
                <div className="space-y-8">
@@ -191,7 +189,7 @@ const App: React.FC = () => {
                </div>
             </div>
           ) : (
-            <div className="animate-in fade-in slide-in-from-right-4 duration-500 space-y-12">
+            <div className="animate-in fade-in slide-in-from-right-4 duration-500 space-y-12 pb-20">
               <button onClick={handleBackToList} className="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-slate-400 hover:text-slate-900 transition-colors">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7 7-7" /></svg>
                 목록으로 돌아가기
@@ -210,16 +208,15 @@ const App: React.FC = () => {
                 </div>
               </div>
 
-              {/* Recovery: Render History for Academy */}
-              {selectedLore.history && selectedLore.history.length > 0 && (
-                <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+              {selectedLore.history && (
+                <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
                   <div className="flex items-center gap-4">
                     <h3 className="text-2xl font-serif italic text-slate-900">Historical Archives // 연혁</h3>
                     <div className="h-px flex-1 bg-slate-200" />
                   </div>
                   <div className="glass p-8 rounded-3xl border-slate-100 bg-white/50 space-y-4">
                     {selectedLore.history.map((item, idx) => (
-                      <div key={idx} className="flex gap-6 pb-4 border-b border-slate-100 last:border-0 last:pb-0">
+                      <div key={idx} className="flex gap-6 pb-4 border-b border-slate-50 last:border-0">
                         <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 shrink-0" />
                         <p className="text-slate-600 font-medium leading-relaxed">{item}</p>
                       </div>
@@ -228,32 +225,21 @@ const App: React.FC = () => {
                 </div>
               )}
 
-              {/* Recovery: Render SubItems for Monsters - Vertically Long and Large */}
-              {selectedLore.subItems && selectedLore.subItems.length > 0 && (
-                <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+              {selectedLore.subItems && (
+                <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
                   <div className="flex items-center gap-4">
                     <h3 className="text-3xl font-serif italic text-red-600">High-Risk Entities // 특급 위험 개체</h3>
                     <div className="h-px flex-1 bg-red-100" />
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                     {selectedLore.subItems.map((sub) => (
-                      <div key={sub.id} className="glass group overflow-hidden rounded-[2.5rem] border-red-50 bg-white hover:border-red-300 transition-all shadow-xl hover:shadow-red-900/10">
+                      <div key={sub.id} className="glass group overflow-hidden rounded-[2.5rem] border-red-50 bg-white hover:border-red-300 transition-all shadow-xl">
                         <div className="aspect-[2/3] relative overflow-hidden">
-                          <img 
-                            src={sub.imageUrl} 
-                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" 
-                            alt={sub.name} 
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
+                          <img src={sub.imageUrl} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" alt={sub.name} />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
                           <div className="absolute bottom-8 left-8 right-8">
-                            <h4 className="text-white font-serif italic text-4xl mb-4 group-hover:text-red-400 transition-colors tracking-tight">{sub.name}</h4>
-                            <div className="h-0.5 w-12 bg-red-500 mb-4 group-hover:w-full transition-all duration-500" />
-                            <p className="text-slate-300 text-base font-medium leading-relaxed opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                              {sub.description}
-                            </p>
-                          </div>
-                          <div className="absolute top-6 right-6 px-3 py-1 bg-red-600/20 backdrop-blur-md border border-red-500/50 rounded-full text-[10px] font-bold text-red-400 tracking-widest uppercase">
-                            Class-S Danger
+                            <h4 className="text-white font-serif italic text-4xl mb-3">{sub.name}</h4>
+                            <p className="text-slate-300 text-base leading-relaxed opacity-0 group-hover:opacity-100 transition-all transform translate-y-4 group-hover:translate-y-0 duration-500">{sub.description}</p>
                           </div>
                         </div>
                       </div>
@@ -301,82 +287,82 @@ const App: React.FC = () => {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col lg:flex-row gap-12 animate-in fade-in slide-in-from-right-4 duration-500">
-            {/* Left Column: Character Imagery */}
-            <div className="lg:w-[400px] flex-shrink-0 space-y-6">
+          <div className="flex flex-col lg:flex-row gap-12 animate-in fade-in slide-in-from-right-4 duration-500 pb-20">
+            {/* Left Column */}
+            <div className="lg:w-[450px] flex-shrink-0 space-y-8">
               <button onClick={handleBackToList} className="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-slate-400 hover:text-slate-900 transition-colors">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7 7-7" /></svg>
                 목록으로 돌아가기
               </button>
 
-              <div className="relative aspect-[3/4] rounded-3xl overflow-hidden glass border-slate-200 shadow-2xl bg-slate-100 group">
-                <img 
-                  key={`${selectedChar.id}-${currentImgIndex}`}
-                  src={allImages[currentImgIndex]} 
-                  alt={selectedChar.name} 
-                  className="w-full h-full object-cover animate-in fade-in duration-500" 
-                />
-                
+              <div className="relative aspect-[3/4] rounded-[2.5rem] overflow-hidden glass border-slate-200 shadow-2xl bg-slate-100 group">
+                <img key={`${selectedChar.id}-${currentImgIndex}`} src={allImages[currentImgIndex]} alt={selectedChar.name} className="w-full h-full object-cover animate-in fade-in duration-500" />
                 {allImages.length > 1 && (
-                  <>
-                    <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button onClick={prevImg} className="p-2 rounded-full bg-white/80 text-slate-900 shadow-md border border-slate-200 hover:scale-110 transition-transform">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" /></svg>
-                      </button>
-                      <button onClick={nextImg} className="p-2 rounded-full bg-white/80 text-slate-900 shadow-md border border-slate-200 hover:scale-110 transition-transform">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" /></svg>
-                      </button>
-                    </div>
-                  </>
+                  <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button onClick={prevImg} className="p-3 rounded-full bg-white/90 text-slate-900 shadow-lg border border-slate-200 hover:scale-110 transition-transform">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" /></svg>
+                    </button>
+                    <button onClick={nextImg} className="p-3 rounded-full bg-white/90 text-slate-900 shadow-lg border border-slate-200 hover:scale-110 transition-transform">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" /></svg>
+                    </button>
+                  </div>
                 )}
-
-                <div className="absolute inset-x-0 bottom-0 p-8 pt-24 bg-gradient-to-t from-white via-white/60 to-transparent">
-                  <h2 className="text-5xl font-serif italic text-slate-900">{selectedChar.name}</h2>
-                  <div className="text-[10px] tracking-[0.5em] text-slate-400 uppercase mb-4">{selectedChar.jpName}</div>
-                  <div className="inline-block px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-widest border border-slate-200 bg-white/50" style={{ color: selectedChar.themeColor }}>
+                <div className="absolute inset-x-0 bottom-0 p-10 pt-32 bg-gradient-to-t from-white via-white/80 to-transparent">
+                  <h2 className="text-6xl font-serif italic text-slate-900">{selectedChar.name}</h2>
+                  <div className="text-xs tracking-[0.6em] text-slate-400 uppercase mb-4">{selectedChar.jpName}</div>
+                  <div className="inline-block px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-widest border border-slate-200 bg-white/80" style={{ color: selectedChar.themeColor }}>
                     {selectedChar.house.toUpperCase()} UNIT
                   </div>
                 </div>
               </div>
+
+              {/* Stats Chart Integration */}
+              <div className="glass p-8 rounded-[2rem] border-slate-100 bg-white/80 shadow-lg">
+                <h3 className="text-xs font-black tracking-widest uppercase text-slate-400 mb-6 flex items-center gap-2">
+                   <div className="w-1.5 h-4 rounded-full" style={{ backgroundColor: selectedChar.themeColor }} />
+                   성좌 감응 데이터 분석
+                </h3>
+                <StatChart data={selectedChar.stats} color={selectedChar.themeColor} />
+              </div>
             </div>
 
-            {/* Right Column: Information (Enlarged) */}
+            {/* Right Column */}
             <div className="flex-1 space-y-10">
-              {/* Detailed Specs Grid */}
               <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {getCharDetails(selectedChar).map((item, idx) => (
-                  <div key={idx} className="glass p-6 rounded-2xl border-slate-100 bg-white/80 shadow-sm">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-1.5 h-4 rounded-full" style={{ backgroundColor: selectedChar.themeColor }} />
+                  <div key={idx} className="glass p-8 rounded-3xl border-slate-100 bg-white shadow-sm hover:shadow-md transition-shadow">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-2 h-5 rounded-full" style={{ backgroundColor: selectedChar.themeColor }} />
                       <h3 className="text-xs font-black tracking-widest uppercase text-slate-400">{item.label}</h3>
                     </div>
-                    <p className="text-xl text-slate-800 font-bold leading-tight">{item.value}</p>
+                    <p className="text-2xl text-slate-800 font-bold tracking-tight">{item.value}</p>
                   </div>
                 ))}
                 
-                {/* Traits Section (Full Width) */}
-                <div className="glass p-8 rounded-2xl border-slate-100 bg-white/80 col-span-1 md:col-span-2 shadow-sm">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-1.5 h-4 rounded-full" style={{ backgroundColor: selectedChar.themeColor }} />
+                <div className="glass p-10 rounded-3xl border-slate-100 bg-white col-span-1 md:col-span-2">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-2 h-5 rounded-full" style={{ backgroundColor: selectedChar.themeColor }} />
                     <h3 className="text-xs font-black tracking-widest uppercase text-slate-400">특징 및 비고</h3>
                   </div>
-                  <p className="text-lg text-slate-700 font-medium leading-relaxed">{selectedChar.traits}</p>
+                  <p className="text-xl text-slate-700 font-medium leading-relaxed">{selectedChar.traits}</p>
                 </div>
               </section>
+
+              {/* AI Character Chat Integration */}
+              <CharacterChat character={selectedChar} />
             </div>
           </div>
         )}
       </main>
 
-      {/* Persistence Footer */}
       <footer className="relative z-30 border-t border-slate-200 bg-white/70 backdrop-blur-xl p-8 mt-auto">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex gap-4 items-center">
              <div className="px-3 py-1 bg-slate-100 border border-slate-200 rounded-md text-[9px] font-bold tracking-[0.2em] text-slate-400 uppercase">
-               Academy Network Status: Optimal
+               Network Status: Optimal
              </div>
              <div className="text-[10px] text-slate-400 tracking-tighter uppercase font-mono">
-               SYS_EPHIEL_CONSTELLATION_V3 // DECRYPTED_ACCESS
+               SYS_EPHIEL_ACADEMY_V2025 // SECURED
              </div>
           </div>
           <div className="text-[9px] text-slate-300 font-bold tracking-widest uppercase">

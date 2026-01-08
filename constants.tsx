@@ -108,7 +108,7 @@ const createChar = (
 ): Character => ({
   id,
   name,
-  jpName: name, // '・アーカイブ' 제거
+  jpName: name, 
   origin,
   title,
   age,
@@ -131,32 +131,23 @@ const createChar = (
     { subject: '윤리', A: Math.floor(Math.random() * 40) + 60, fullMark: 100 },
     { subject: '통솔', A: Math.floor(Math.random() * 50) + 50, fullMark: 100 },
   ],
-  quotes: ["성좌는 결코 틀리지 않아.", "우주의 의지를 거스르는 자들에게 파멸을."]
+  quotes: ["우주의 의지를 거스르는 자들에게 파멸을."]
 });
 
 export const CHARACTERS: Character[] = [
-  // 학장
   createChar('yuni', '유니', 'Principal', '#e2e8f0', '밀로아', '학장', '45세', '조용하고 우아함', "성좌를 관장하는 신 '크리오스'", '타인의 성좌의 힘을 다룰 수 있음', '별모양 동공', '사실은 진짜 성격을 숨기고 있는데...', 'https://razbe.uk/da02.png', ['https://razbe.uk/ea01.png', 'https://razbe.uk/fa01.png']),
-  
-  // 데우스 학파
   createChar('ciel', '시엘', 'Deus', '#06b6d4', '지구', '1학년', '20세', '담담한 마이페이스', '무지개의 여신 \'이리스\'', '어디든지 순식간에 이동', '무지개색 이너헤어', '입고 싶은 교복도, 듣고 싶은 수업도 다 제멋대로', 'https://razbe.uk/db02.png', ['https://razbe.uk/eb01.png', 'https://razbe.uk/fb01.png']),
   createChar('seo', '세오', 'Deus', '#06b6d4', '밀로아', '2학년', '21세', '쿨해보이지만 외로움 잘탐', '명계의 인도자 \'아누비스\'', '영혼을 부릴 수 있음', '늑대 귀', '친구는 유령 친구가 있어요!', 'https://razbe.uk/dc02.png', ['https://razbe.uk/ec01.png', 'https://razbe.uk/fc01.png']),
   createChar('fani', '파니', 'Deus', '#06b6d4', '밀로아', '1학년', '101세', '호기심 가득', '우주의 섭리 \'바루나\'', '물을 자유롭게 다룸', '인간의 신체', '슬라임에 성좌가 깃들어 인간의 몸을 얻음', 'https://razbe.uk/dd02.png', ['https://razbe.uk/ed01.png', 'https://razbe.uk/fd01.png']),
   createChar('leshem', '레솀', 'Deus', '#06b6d4', '지구', '교사', '31세', '친근하고 요염함', '하늘의 서기관 \'메타트론\'', '아카식 레코드를 통해 무수한 정보를 얻을 수 있음', '천사 날개', '의외로 연애허접', 'https://razbe.uk/de02.png', ['https://razbe.uk/ee01.png', 'https://razbe.uk/fe01.png']),
-  
-  // 아담 학파 (성흔 없음)
   createChar('adam1', '윤정아', 'Adam', '#f43f5e', '지구', '3학년', '22세', '호쾌하고 당당함', '광활한 정복군주 \'광개토대왕\'', '주변 영역을 마음대로 지배하고 변화시킴', '', '리더쉽 넘치는 학생회장', 'https://razbe.uk/df02.png', ['https://razbe.uk/ef01.png', 'https://razbe.uk/ff01.png']),
   createChar('ruming', '루밍', 'Adam', '#f43f5e', '밀로아', '2학년', '21세', '활발할 실험광', '난해한 발명가 \'다이달로스\'', '상상 속의 물건을 개발', '', '잦은 실험으로 사고치는 맑은 눈의 광인', 'https://razbe.uk/dg02.png', ['https://razbe.uk/eg01.png', 'https://razbe.uk/fg01.png']),
   createChar('frenda', '프렌다', 'Adam', '#f43f5e', '지구', '1학년', '20세', '순진하고 활발함', '성야의 축복 \'산타클로스\'', '무작위 선물이 들어있는 깜짝 상자', '', '서프라이즈가 너무 좋아', 'https://razbe.uk/dh02.png', ['https://razbe.uk/eh01.png', 'https://razbe.uk/fh01.png']),
   createChar('sirha', '시르하', 'Adam', '#f43f5e', '밀로아', '교사', '347세', '고지식하지만 허당', '사막 위의 신념 \'살라딘\'', '타인에게 갈증과 결핍을 줌', '', '요즘 학생들의 유행을 따라가고 싶은 엘프', 'https://razbe.uk/di02.png', ['https://razbe.uk/ei01.png', 'https://razbe.uk/fi01.png']),
-  
-  // 베헤모스 학파
   createChar('schatten', '샤텐', 'Behemoth', '#8b5cf6', '지구', '1학년', '20세', '활발하고 로망이 넘침', '탑을 오르는 그림자 \'아 바오아 쿠\'', '그림자를 다룸', '검은색 피부', '닌자가 되고 싶습니다!', 'https://razbe.uk/dj02.png', ['https://razbe.uk/ej01.png', 'https://razbe.uk/fj01.png']),
   createChar('levi', '레비', 'Behemoth', '#8b5cf6', '밀로아', '1학년', '20세', '조용하고 무감정함', '만악의 재앙룡 \'아지다하카\'', '파괴, 부식, 재생', '삼중인격', '부드러운 인격과 츤데레 인격이 공존', 'https://razbe.uk/dk02.png', ['https://razbe.uk/ek01.png', 'https://razbe.uk/fk01.png']),
   createChar('ricella', '리셀라', 'Behemoth', '#8b5cf6', '밀로아', '2학년', '21세', '능글맞고 장난기 많음', '마안의 작은 왕 \'바실리스크\'', '타인에게 저주를 거는 마안', '녹색의 마안', '에카타 제국의 황녀이자 부학생회장', 'https://razbe.uk/dl02.png', ['https://razbe.uk/el01.png', 'https://razbe.uk/fl01.png']),
   createChar('mardel', '마르델', 'Behemoth', '#8b5cf6', '지구', '교사', '35세', '장난기 넘치지만 사려 깊음', '괴물들의 어머니 \'에키드나\'', '괴물을 창조함', '길다란 혀', '은근히 학생들을 돌봐주는 의외의 마망', 'https://razbe.uk/dm02.png', ['https://razbe.uk/em01.png', 'https://razbe.uk/fm01.png']),
-  
-  // 메르헨 학파
   createChar('tsukuha', '츠쿠하', 'Marchen', '#10b981', '지구', '2학년', '21세', '순진하고 엉뚱함', '달의 공주 \'카구야\'', '시련을 내림', '달토끼의 귀', '시련에 맞딱드리는 걸 좋아하는 시련 매니아', 'https://razbe.uk/dn02.png', ['https://razbe.uk/en01.png', 'https://razbe.uk/fn01.png']),
   createChar('lucel', '루첼', 'Marchen', '#10b981', '지구', '1학년', '20세', '소심하고 자신감 없음', '재투성이 공주님 \'신데렐라\'', '이상적인 모습, 프린세스 모드!', '잿빛 머리카락', '꾸미면 무지 귀여움', 'https://razbe.uk/do02.png', ['https://razbe.uk/eo01.png', 'https://razbe.uk/fo01.png']),
   createChar('shu', '슈', 'Marchen', '#10b981', '밀로아', '3학년', '22세', '중립적이지만 약삭빠름', '평온과 부유의 기로 \'시골쥐와 도시쥐\'', '공격 혹은 방어 올인', '쥐의 귀', '계산이 빠른 학생회 회계', 'https://razbe.uk/dp02.png', ['https://razbe.uk/ep01.png', 'https://razbe.uk/fp01.png']),
